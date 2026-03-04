@@ -20,15 +20,16 @@ class _LogInScreenState extends State<LogInScreen> {
           children: [
             SvgPicture.asset(AssetsPath.backgroundSvg, fit: BoxFit.cover),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+              child:  Column(
                   spacing: 15,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Get Started with',
-                      style: TextTheme.of(context).bodyLarge,
+                    SizedBox(
+                      width: 300,
+                      child: Text(
+                        'Get Started with',
+                        style: TextTheme.of(context).bodyLarge,
+                      ),
                     ),
                     CustomInputWidget(
                       emailController: _emailController,
@@ -44,7 +45,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ],
                 ),
               ),
-            ),
+            
           ],
         ),
       ),
@@ -90,7 +91,7 @@ class CustomInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-     // width: 300,
+     width: 300,
       child: TextField(
         controller: Controller,
         decoration: InputDecoration(
