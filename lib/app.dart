@@ -7,6 +7,30 @@ class TaskManagerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      theme: ThemeData(
+        
+        textTheme: TextTheme(
+          
+          bodyLarge: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+           
+
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            
+          ),
+          bodySmall: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+             color: Colors.grey.shade600,
+          ),
+        ),
+
+      ),
      debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_avif/flutter_avif.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_manager_astad/screens/logIn_screen.dart';
 import 'package:task_manager_astad/utils/assets_path.dart';
 
@@ -19,17 +20,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
-   // moveToNextScreen();
+   moveToNextScreen();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          AvifImage.asset(AssetsPath.backgroundSvg),
-          Center(child: Image.asset(AssetsPath.logo)),
+          SvgPicture.asset(AssetsPath.backgroundSvg,fit: BoxFit.cover,),
+          Center(child: SvgPicture.asset(AssetsPath.logo)),
         ],
       ),
       
