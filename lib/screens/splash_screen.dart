@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_manager_astad/screens/logIn_screen.dart';
+import 'package:task_manager_astad/screens/new_login_screen.dart';
 import 'package:task_manager_astad/utils/assets_path.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void>moveToNextScreen()async{
    await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NewLoginScreen()));
   }
 
   @override

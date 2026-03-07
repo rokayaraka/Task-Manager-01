@@ -23,14 +23,13 @@ class _LogInScreenState extends State<LogInScreen> {
               child:  Column(
                   spacing: 15,
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 300,
-                      child: Text(
+                     Text(
                         'Get Started with',
                         style: TextTheme.of(context).bodyLarge,
                       ),
-                    ),
+                    
                     CustomInputWidget(
                       emailController: _emailController,
                       hintText: 'Email',
@@ -42,6 +41,19 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                 
                     CustomElevatedButton(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Forget Password?',style: TextTheme.of(context).bodySmall,),
+                        Row(
+                          children: [
+                            Text("Don't have account",),
+                            TextButton(onPressed: (){}, child: Text('Sign up'))
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
