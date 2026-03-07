@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/screens/forget_password_email_verify.dart';
 import 'package:task_manager_astad/screens/sign_up_screen.dart';
 import 'package:task_manager_astad/utils/app_colors.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
@@ -14,6 +15,10 @@ class NewLoginScreen extends StatefulWidget {
 class _NewLoginScreenState extends State<NewLoginScreen> {
   void  _onTapSignUp(){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+
+  }
+  void  _onForgetPassword(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordEmailVerify()));
 
   }
   @override
@@ -45,7 +50,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                   child: Column(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed:_onForgetPassword,
                         child: Text(
                           'Forget password?',
                           style: TextStyle(color: Colors.grey),

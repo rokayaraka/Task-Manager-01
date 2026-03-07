@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager_astad/screens/logIn_screen.dart';
+
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 import 'package:task_manager_astad/utils/assets_path.dart';
 
