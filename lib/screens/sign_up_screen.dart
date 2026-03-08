@@ -20,6 +20,7 @@ class _NewLoginScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ScreenBackground(
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -51,7 +52,7 @@ class _NewLoginScreenState extends State<SignUpScreen> {
                   obscureText: true,
                   decoration: InputDecoration(hintText: 'Password'),
                 ),
-            
+            SizedBox(height: 10),
                 FilledButton(
                   onPressed: () {},
                   child: Icon(Icons.arrow_circle_right_outlined),
@@ -72,6 +73,7 @@ class _NewLoginScreenState extends State<SignUpScreen> {
                           text: "Have an account? ",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
+                              color: Colors.black,
                           ),
                           children: [
                             TextSpan(

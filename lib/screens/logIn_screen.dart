@@ -15,7 +15,9 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      
       child: Scaffold(
+        
         body: Stack(
           children: [
             SvgPicture.asset(AssetsPath.backgroundSvg, fit: BoxFit.cover),

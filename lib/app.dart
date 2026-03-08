@@ -10,7 +10,7 @@ class TaskManagerApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: TextTheme(
-          titleLarge: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+          titleLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
 
           bodyLarge: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
           bodyMedium: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
