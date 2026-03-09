@@ -1,32 +1,26 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
-import 'package:task_manager_astad/screens/set_password_screen.dart';
+import 'package:task_manager_astad/screens/otp_verification.dart';
 
 import 'package:task_manager_astad/utils/app_colors.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
-class OtpVerification extends StatefulWidget {
-  const OtpVerification({super.key});
+class SetPasswordScreen extends StatefulWidget {
+  const SetPasswordScreen({super.key});
 
   @override
-  State<OtpVerification> createState() => _NewLoginScreenState();
+  State<SetPasswordScreen> createState() => _NewLoginScreenState();
 }
 
-class _NewLoginScreenState extends State<OtpVerification> {
+class _NewLoginScreenState extends State<SetPasswordScreen> {
   void _onTapLogIn() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
     );
   }
-  void _onTapForOtpVerify() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SetPasswordScreen()),
-    );
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -36,47 +30,24 @@ class _NewLoginScreenState extends State<OtpVerification> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-         
+            //mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 150),
-              Text('PIN Verification', style: TextTheme.of(context).titleLarge),
-              SizedBox(height: 25),
-              
-              PinInput(
-                length: 6,
-                keyboardType: TextInputType.number,
-                builder: (context, cells) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: cells.map((cell) {
-                      return Container(
-                        width: 50,
-                        height: 50,
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: cell.isFocused
-                              ? AppColors.primaryColor
-                              : Colors.grey[200],
-                        ),
-                        child: Center(
-                          child: Text(
-                            cell.character ?? '',
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                },
-                onCompleted: (pin) => print('PIN: $pin'),
+              Text(
+                'Set Password',
+                style: TextTheme.of(context).titleLarge,
               ),
+              SizedBox(height: 10,),
+              Text('Password should be more than 6 letters',style: TextTheme.of(context).bodySmall,),
+              SizedBox(height: 25),
+              TextFormField(decoration: InputDecoration(hintText: 'Password')),
               SizedBox(height: 10),
-
+              TextFormField(decoration: InputDecoration(hintText: 'Confirm Password')),
+              SizedBox(height: 10),
               FilledButton(
-                onPressed: _onTapForOtpVerify,
-                child: Icon(Icons.arrow_circle_right_outlined),
+                onPressed: (){},
+                child: Text('Confirm'),
               ),
               SizedBox(height: 35),
               Center(

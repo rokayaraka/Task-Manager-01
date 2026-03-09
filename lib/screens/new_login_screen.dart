@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_astad/screens/forget_password_email_verify.dart';
+import 'package:task_manager_astad/screens/main_nav_screen.dart';
 import 'package:task_manager_astad/screens/sign_up_screen.dart';
 import 'package:task_manager_astad/utils/app_colors.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
@@ -19,6 +20,10 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
   }
   void  _onForgetPassword(){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordEmailVerify()));
+
+  }
+  void  _onMainNavScreen(){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNavScreen()));
 
   }
   @override
@@ -44,7 +49,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                 ),
                 SizedBox(height: 10,),
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: _onMainNavScreen,
                   child: Icon(Icons.arrow_circle_right_outlined),
                 ),
                 SizedBox(height: 35,),
