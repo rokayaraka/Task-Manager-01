@@ -51,7 +51,7 @@ class _NewLoginScreenState extends State<OtpVerification> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: cells.map((cell) {
                       return Container(
-                        width: 50,
+                        width: 40,
                         height: 50,
                         margin: EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
