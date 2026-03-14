@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/Data/Models/api_response.dart';
+import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 
 import 'package:task_manager_astad/utils/app_colors.dart';
+import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -19,6 +22,47 @@ class _NewLoginScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+
+_clearTextField(){
+  _emailController.clear();
+  _firstNameController.clear();
+  _lastNameController.clear();
+  _mobileController.clear();
+  _passwordController.clear();
+}
+  bool isLoading = false;
+  Future<void> _signUp() async {
+    Map<String, dynamic> requestBody = {
+      "email": _emailController.text,
+      "firstName": _firstNameController.text,
+      "lastName": _lastNameController.text,
+      "mobile": _mobileController.text,
+      "password": _passwordController.text,
+    };
+    setState(() {
+      isLoading = true;
+    });
+    final ApiResponse response = await ApiCaller.PostRequest(
+      URL: Urls.SignUpUrl,
+      body: requestBody,
+    );
+    setState(() {
+      isLoading = false;
+    });
+
+    if (response.isSuccess) {
+      _clearTextField();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Sign Up Successful.')));
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(response.responseData['data'])));
+    }
+  }
+
   void _onTapLogIn() {
     Navigator.push(
       context,
@@ -45,11 +89,10 @@ class _NewLoginScreenState extends State<SignUpScreen> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(hintText: 'Email'),
-                    validator: (value){
-                      if(value==null|| value.isEmpty){
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return 'Please Enter Valid Email';
-                      }
-                      else {
+                      } else {
                         return null;
                       }
                     },
@@ -76,12 +119,16 @@ class _NewLoginScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(hintText: 'Password'),
                   ),
                   SizedBox(height: 10),
-                  FilledButton(
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){}
-                    },
-                    child: Icon(Icons.arrow_circle_right_outlined),
-                  ),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : FilledButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _signUp();
+                            }
+                          },
+                          child: Icon(Icons.arrow_circle_right_outlined),
+                        ),
                   SizedBox(height: 35),
                   Center(
                     child: Column(

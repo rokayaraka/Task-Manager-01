@@ -12,6 +12,7 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+    bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,6 +36,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     CustomInputWidget(
                       emailController: _emailController,
                       hintText: 'Email',
+                      
                     ),
                 
                     CustomInputWidget(

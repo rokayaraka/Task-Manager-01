@@ -14,6 +14,9 @@ class NewLoginScreen extends StatefulWidget {
 }
 
 class _NewLoginScreenState extends State<NewLoginScreen> {
+    TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+    bool isLoading = false;
   void  _onTapSignUp(){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
 
@@ -41,11 +44,21 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                 SizedBox(height: 150),
                 Text('Get Started With', style: TextTheme.of(context).titleLarge),
                 SizedBox(height: 25),
-                TextFormField(decoration: InputDecoration(hintText: 'Email')),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(hintText: 'Email')),
                 SizedBox(height: 10),
                 TextFormField(
+                  controller: _passwordController,
                   obscureText: true,
                   decoration: InputDecoration(hintText: 'Password'),
+                   validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Valid Password';
+                      } else {
+                        return null;
+                      }
+                    },
                 ),
                 SizedBox(height: 10,),
                 FilledButton(
