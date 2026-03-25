@@ -11,10 +11,10 @@ class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _NewLoginScreenState();
+  State<SignUpScreen> createState() => _NewSignUpScreenState();
 }
 
-class _NewLoginScreenState extends State<SignUpScreen> {
+class _NewSignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
@@ -22,14 +22,14 @@ class _NewLoginScreenState extends State<SignUpScreen> {
   final TextEditingController _mobileController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  void _clearTextField() {
+    _emailController.clear();
+    _firstNameController.clear();
+    _lastNameController.clear();
+    _mobileController.clear();
+    _passwordController.clear();
+  }
 
-_clearTextField(){
-  _emailController.clear();
-  _firstNameController.clear();
-  _lastNameController.clear();
-  _mobileController.clear();
-  _passwordController.clear();
-}
   bool isLoading = false;
   Future<void> _signUp() async {
     Map<String, dynamic> requestBody = {
@@ -53,10 +53,12 @@ _clearTextField(){
     if (response.isSuccess) {
       _clearTextField();
       ScaffoldMessenger.of(
+        // ignore: use_build_context_synchronously
         context,
       ).showSnackBar(SnackBar(content: Text('Sign Up Successful.')));
     } else {
       ScaffoldMessenger.of(
+        // ignore: use_build_context_synchronously
         context,
       ).showSnackBar(SnackBar(content: Text(response.responseData['data'])));
     }
@@ -78,6 +80,7 @@ _clearTextField(){
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Form(
+              key: _formKey,
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,22 +103,50 @@ _clearTextField(){
                   TextFormField(
                     controller: _firstNameController,
                     decoration: InputDecoration(hintText: 'First Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter  First Name';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _lastNameController,
                     decoration: InputDecoration(hintText: 'Last Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Last Name';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _mobileController,
                     decoration: InputDecoration(hintText: 'Mobile'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Valid Phone Number';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                   TextFormField(
                     obscureText: true,
                     controller: _passwordController,
                     decoration: InputDecoration(hintText: 'Password'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Valid Password';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                   isLoading
@@ -132,7 +163,6 @@ _clearTextField(){
                   Center(
                     child: Column(
                       children: [
-                       
                         RichText(
                           text: TextSpan(
                             text: "Have an account? ",
