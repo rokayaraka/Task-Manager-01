@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/Controller/auth_controller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 
 class TmAppbar extends StatelessWidget implements PreferredSize{
@@ -14,23 +15,28 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
     );
   }
+
+  final profilePic = AuthController.userModel!.photo;
+
     return AppBar(
       backgroundColor: Colors.green,
       title: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage('https://static.vecteezy.com/system/resources/previews/014/194/215/non_2x/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg'),
+            backgroundImage: NetworkImage(
+              profilePic!
+            ),
           ),
           SizedBox(width: 10,),
           Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Rokaya Raka',
+              Text('${AuthController.userModel!.firstName}${AuthController.userModel!.lastName}',
               style: TextTheme.of(context).bodyMedium!.copyWith(
                 color: Colors.white,
                 fontSize: 17,
               ),
               ),
-              Text('rokayaraka251@gmail.com',
+              Text('${AuthController.userModel!.email}',
               style: TextTheme.of(context).bodySmall!.copyWith(
                 color: Colors.white,
                 fontSize: 12,
