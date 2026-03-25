@@ -74,8 +74,8 @@ class ApiCaller {
 
   static void _logRequest(String URL, {Map<String, dynamic>? body}) {
     _logger.i(
-      'URL => $URL \n '
-      'Body=> $body\n',
+      'URL => $URL \n'
+          'Body=> $body\n',
     );
   }
 }
