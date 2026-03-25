@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:task_manager_astad/Data/Models/api_response.dart';
 import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
-
 import 'package:task_manager_astad/utils/app_colors.dart';
 import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
@@ -133,13 +132,7 @@ _clearTextField(){
                   Center(
                     child: Column(
                       children: [
-                        // TextButton(
-                        //   onPressed: () {},
-                        //   child: Text(
-                        //     'Forget password?',
-                        //     style: TextStyle(color: Colors.grey),
-                        //   ),
-                        // ),
+                       
                         RichText(
                           text: TextSpan(
                             text: "Have an account? ",
