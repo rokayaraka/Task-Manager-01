@@ -6,8 +6,8 @@ import 'package:task_manager_astad/Data/Models/userModel.dart';
 
 class AuthController {
   static final Logger _logger = Logger();
-  static String _accessTokenKey = 'token';
-  static String _userModelKey = 'user-data';
+  static final String _accessTokenKey = 'token';
+  static final String _userModelKey = 'user-data';
 
   static String? accessToken;
   static UserModel? userModel;
