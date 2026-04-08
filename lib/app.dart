@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/Google%20map/google_map_screen.dart';
 import 'package:task_manager_astad/screens/splash_screen.dart';
 import 'package:task_manager_astad/utils/app_colors.dart';
 
@@ -43,7 +44,7 @@ class TaskManagerApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: GoogleMapScreen(),
     );
   }
 }
