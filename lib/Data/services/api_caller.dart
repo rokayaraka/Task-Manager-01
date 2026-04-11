@@ -21,7 +21,7 @@ class ApiCaller {
       );
       _logRequest(url, jsonDecode(response.body));
       if(response.statusCode == 200){
-        return ApiResponse(responseCode: response.statusCode, responseData:jsonDecode(response.body), isSuccess: true, errorMessage: '');
+        return ApiResponse(responseCode: response.statusCode, responseData:jsonDecode(response.body), isSuccess: true, errorMessage: '',);
       }
       else{
         return ApiResponse(responseCode: response.statusCode, responseData: jsonDecode(response.body), isSuccess: false, errorMessage: "Request failed with status: ${response.statusCode}");
