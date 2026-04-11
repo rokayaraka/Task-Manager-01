@@ -17,7 +17,7 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
     );
   }
 
-  final profilePic = AuthController.userModel!.photo;
+  final profilePic = AuthController.userModel?.photo??"https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
 
     return AppBar(
       backgroundColor: Colors.green,
@@ -30,7 +30,7 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                profilePic
+                profilePic  
               ),
             ),
             SizedBox(width: 10,),
