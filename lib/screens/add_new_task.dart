@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_astad/Data/Models/api_response.dart';
-import 'package:task_manager_astad/Data/services/api_caller.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:task_manager_astad/providers/task_provider.dart';
 import 'package:task_manager_astad/screens/main_nav_screen.dart';
-import 'package:task_manager_astad/utils/urls.dart';
+
 import 'package:task_manager_astad/widgets/screen_background.dart';
 import 'package:task_manager_astad/widgets/tm_appbar.dart';
 
