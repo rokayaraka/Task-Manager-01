@@ -16,16 +16,17 @@ class UserModel {
   });
 
 
-  factory UserModel.fromJson(Map<String,dynamic> jsonData){
-    return UserModel(id: jsonData['_id'],
-      email: jsonData['email'],
-      firstName: jsonData['firstName'],
-      lastName: jsonData['lastName'],
-      mobile: jsonData['mobile'],
-      photo: jsonData['photo'] ?? '',
+  factory UserModel.fromJson(Map<String, dynamic> jsonData) {
+    String readString(dynamic value) => value?.toString() ?? '';
 
+    return UserModel(
+      id: readString(jsonData['_id'] ?? jsonData['id']),
+      email: readString(jsonData['email']),
+      firstName: readString(jsonData['firstName']),
+      lastName: readString(jsonData['lastName']),
+      mobile: readString(jsonData['mobile']),
+      photo: readString(jsonData['photo']),
     );
-
   }
 
   Map<String,dynamic> toJson(){

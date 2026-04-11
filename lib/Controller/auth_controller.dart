@@ -15,7 +15,7 @@ class AuthController {
   static Future saveUserdata(UserModel model, String token) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(_accessTokenKey, token);
-    await sharedPreferences.setString(_userModelKey, jsonEncode(model));
+    await sharedPreferences.setString(_userModelKey, jsonEncode(model.toJson()));
     accessToken = token;
     userModel = model;
 
@@ -26,10 +26,29 @@ class AuthController {
   static Future getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString(_accessTokenKey);
-    if (token != null) {
+    if (token == null) {
+      accessToken = null;
+      userModel = null;
+      return;
+    }
+
+    try {
       accessToken = token;
       String? userData = sharedPreferences.getString(_userModelKey);
-      userModel = UserModel.fromJson(jsonDecode(userData!));
+      if (userData == null || userData.isEmpty) {
+        await cleanUserData();
+        return;
+      }
+
+      final dynamic decoded = jsonDecode(userData);
+      if (decoded is! Map<String, dynamic>) {
+        await cleanUserData();
+        return;
+      }
+
+      userModel = UserModel.fromJson(decoded);
+    } catch (_) {
+      await cleanUserData();
     }
 
     _logger.i(token);
@@ -39,18 +58,20 @@ class AuthController {
   static Future<bool> isUserLoggedIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString(_accessTokenKey);
-   return token!=null;
+    return token != null && userModel != null;
   }
 
-   static Future<void> updateUserData(UserModel model) async {
-      SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
-      await sharedPreferences.setString(_userModelKey, jsonEncode(model.toJson()));
-    }
+  static Future<void> updateUserData(UserModel model) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_userModelKey, jsonEncode(model.toJson()));
+    userModel = model;
+  }
 
-
-
-    static Future<void> cleanUserData(UserModel model) async {
-      SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
-      await sharedPreferences.clear();
-    }
+  static Future<void> cleanUserData([UserModel? model]) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove(_accessTokenKey);
+    await sharedPreferences.remove(_userModelKey);
+    accessToken = null;
+    userModel = null;
+  }
 }
