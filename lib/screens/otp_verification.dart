@@ -20,7 +20,6 @@ class OtpVerification extends StatefulWidget {
 class _NewLoginScreenState extends State<OtpVerification> {
   PinInputController _pinController = PinInputController();
   void _onTapLogIn() async{
-
     log('OTP Entered: ${_pinController.text}');
     Navigator.push(
       context,
