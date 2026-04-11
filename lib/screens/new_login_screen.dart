@@ -34,7 +34,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
       isLoading = true;
     });
     final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.LogInUrl,
+      URL: Urls.LoginUrl,
       body: requestBody,
     );
     setState(() {

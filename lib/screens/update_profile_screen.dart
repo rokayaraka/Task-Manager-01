@@ -1,6 +1,6 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
-import 'package:task_manager_astad/utils/app_colors.dart';
+
 import 'package:task_manager_astad/widgets/tm_appbar.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
