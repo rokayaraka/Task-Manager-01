@@ -1,28 +1,41 @@
 class UserModel {
-  String? email;
-  String? firstName;
-  String? lastName;
-  String? mobile;
-  String? photo;
+  final String id;
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String mobile;
+  final String photo;
 
-  UserModel(
-      {this.email, this.firstName, this.lastName, this.mobile, this.photo});
+  UserModel({required this.id,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.mobile,
+    required this.photo,
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    mobile = json['mobile'];
-    photo = json['photo'];
+  });
+
+
+  factory UserModel.fromJson(Map<String,dynamic> jsonData){
+    return UserModel(id: jsonData['_id'],
+      email: jsonData['email'],
+      firstName: jsonData['firstName'],
+      lastName: jsonData['lastName'],
+      mobile: jsonData['mobile'],
+      photo: jsonData['photo'] ?? '',
+
+    );
+
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['mobile'] = this.mobile;
-    data['photo'] = this.photo;
-    return data;
+  Map<String,dynamic> toJson(){
+    return {
+      "_id":id,
+      "email":email,
+      "firstName":firstName,
+      "lastName":lastName,
+      "mobile":mobile,
+      "photo" : photo
+    };
   }
 }

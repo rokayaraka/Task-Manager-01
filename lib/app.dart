@@ -44,7 +44,7 @@ class TaskManagerApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: GoogleMapScreen(),
+      home: SplashScreen(),
     );
   }
 }

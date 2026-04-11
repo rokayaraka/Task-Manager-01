@@ -43,7 +43,7 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
       isLoading = true;
     });
     final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.SignUpUrl,
+      URL: Urls.SignUpURL,
       body: requestBody,
     );
     setState(() {

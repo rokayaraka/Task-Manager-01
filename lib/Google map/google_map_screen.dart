@@ -12,7 +12,6 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  late final GoogleMapController _googleMapController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           target: LatLng(23.85762119445905, 90.30724167812177),
         ),
         onMapCreated: (GoogleMapController controller) {
-          _googleMapController = controller;
         },
         onTap: (LatLng latlag) {
           log(latlag.toString());
