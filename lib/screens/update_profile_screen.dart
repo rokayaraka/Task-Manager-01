@@ -163,6 +163,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(hintText: 'Email'),
+                  cursorHeight: 20,
+                  cursorWidth: 3,
+                   style: TextStyle(fontSize: 16),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter email';
@@ -175,6 +178,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 TextFormField(
                   controller: _firstNameController,
                   decoration: InputDecoration(hintText: 'First name'),
+                  cursorHeight: 20,
+                  cursorWidth: 3,
+                   style: TextStyle(fontSize: 16),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter First name';
@@ -187,6 +193,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 TextFormField(
                   controller: _lastNameController,
                   decoration: InputDecoration(hintText: 'Last name'),
+                  cursorHeight: 20,
+                  cursorWidth: 3,
+                   style: TextStyle(fontSize: 16),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter Last name';
@@ -199,6 +208,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 TextFormField(
                   controller: _mobileController,
                   decoration: InputDecoration(hintText: 'Mobile'),
+                  cursorHeight: 20,
+                  cursorWidth: 3,
+                   style: TextStyle(fontSize: 16),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter phone number';
@@ -214,6 +226,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   controller: _passwordController,
                   obscureText: true,
                   decoration: InputDecoration(hintText: 'Password'),
+                  cursorHeight: 20,
+                  cursorWidth: 3,
+                   style: TextStyle(fontSize: 16),
                 ),
                 if (isLoading)
                   const Center(child: CircularProgressIndicator())
