@@ -44,9 +44,12 @@ class _AddNewTaskState extends State<AddNewTask> {
 
               TextFormField(
                 controller: titleController,
+                cursorHeight: 20,
+                cursorWidth: 3,
                 decoration: InputDecoration(
                   hintText: 'Title'
                 ),
+                style: TextStyle(fontSize: 16),
 
                 validator: (String ? value){
                   if(value == null || value.isEmpty){
@@ -61,6 +64,9 @@ class _AddNewTaskState extends State<AddNewTask> {
               ),
               TextFormField(
                 controller: descriptionController,
+                cursorHeight: 20,
+                cursorWidth: 3,
+                style: TextStyle(fontSize: 16),
                 maxLines: 6,
                 decoration: InputDecoration(
                   hintText: 'Description'

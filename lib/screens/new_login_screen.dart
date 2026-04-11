@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -63,6 +65,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
               content: Text('Invalid response from server. Please try again.'),
             ),
           );
+          
           return;
         }
 
@@ -85,7 +88,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
         UserModel model = UserModel.fromJson(userData);
         String accessToken = token.toString();
         AuthController.saveUserdata(model, accessToken);
-
+     log(response.responseCode.toString());
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainNavScreen()),
@@ -151,6 +154,9 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                   SizedBox(height: 25),
                   TextFormField(
                     controller: _emailController,
+                    cursorHeight: 20,
+                    style: TextStyle(fontSize: 16),
+                cursorWidth: 3,
                     decoration: InputDecoration(hintText: 'Email'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -163,6 +169,9 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _passwordController,
+                    cursorHeight: 20,
+                cursorWidth: 3,
+                style: TextStyle(fontSize: 16),
                     obscureText: true,
                     decoration: InputDecoration(hintText: 'Password'),
                      validator: (value) {
