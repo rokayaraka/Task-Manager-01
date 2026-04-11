@@ -14,6 +14,8 @@ class SetPasswordScreen extends StatefulWidget {
 }
 
 class _NewLoginScreenState extends State<SetPasswordScreen> {
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
   void _onTapLogIn() {
     Navigator.push(
       context,
@@ -41,9 +43,24 @@ class _NewLoginScreenState extends State<SetPasswordScreen> {
               SizedBox(height: 10,),
               Text('Password should be more than 6 letters',style: TextTheme.of(context).bodySmall,),
               SizedBox(height: 25),
-              TextFormField(decoration: InputDecoration(hintText: 'Password')),
+              TextFormField(
+                  obscureText: true,
+                  cursorHeight: 20,
+                cursorWidth: 3,
+                style: TextStyle(fontSize: 16),
+                controller: _passwordController,
+                decoration: InputDecoration(hintText: 'Password'),
+              ),
               SizedBox(height: 10),
-              TextFormField(decoration: InputDecoration(hintText: 'Confirm Password')),
+              TextFormField(
+                cursorHeight: 20,
+
+                cursorWidth: 3,
+                style: TextStyle(fontSize: 16),
+                 obscureText: true,
+                controller: _confirmPasswordController,
+                decoration: InputDecoration(hintText: 'Confirm Password'),
+              ),
               SizedBox(height: 10),
               FilledButton(
                 onPressed: (){},
