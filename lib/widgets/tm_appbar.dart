@@ -18,7 +18,7 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
     );
   }
 
-  final profilePic = AuthController.userModel?.photo??"https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+  final profilePic = "https://static.vecteezy.com/system/resources/thumbnails/032/176/191/small_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg";
 
     return AppBar(
       backgroundColor: Colors.green,
@@ -31,7 +31,9 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                profilePic  
+                profilePic  ,
+
+                
               ),
             ),
             SizedBox(width: 10,),
