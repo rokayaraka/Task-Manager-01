@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager_astad/providers/auth_provider.dart';
+import 'package:task_manager_astad/providers/task_provider.dart';
 
 import 'package:task_manager_astad/screens/splash_screen.dart';
 import 'package:task_manager_astad/utils/app_colors.dart';
@@ -8,43 +11,52 @@ class TaskManagerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: TextTheme(
-          titleLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          textTheme: TextTheme(
+            titleLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
 
-          bodyLarge: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-          bodyMedium: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          bodySmall: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey.shade600,
+            bodyLarge: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            bodyMedium: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            bodySmall: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade600,
+            ),
           ),
-        ),
 
-        inputDecorationTheme: InputDecorationTheme(
-          
-          filled: true,
-          fillColor: Colors.white,
-          hintStyle: TextStyle(color: Colors.grey,fontSize: 20,),
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-          border: OutlineInputBorder(borderSide: BorderSide.none),
-        ),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: 20,
+            ),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+            border: OutlineInputBorder(borderSide: BorderSide.none),
+          ),
 
-        filledButtonTheme: FilledButtonThemeData(
-          style: FilledButton.styleFrom(
-
-            backgroundColor: AppColors.primaryColor,
-            fixedSize: Size.fromWidth(double.maxFinite),
-            padding: EdgeInsets.symmetric(vertical: 12,),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(8),
+          filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.primaryColor,
+              fixedSize: Size.fromWidth(double.maxFinite),
+              padding: EdgeInsets.symmetric(
+                vertical: 12,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(8),
+              ),
             ),
           ),
         ),
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
     );
   }
 }

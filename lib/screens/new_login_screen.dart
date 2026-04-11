@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:task_manager_astad/Controller/auth_controller.dart';
 import 'package:task_manager_astad/Data/Models/api_response.dart';
 import 'package:task_manager_astad/Data/Models/userModel.dart';
@@ -20,43 +21,106 @@ class NewLoginScreen extends StatefulWidget {
 
 class _NewLoginScreenState extends State<NewLoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    TextEditingController _emailController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
+  final Logger _logger = Logger();
 
     Future<void> _signIn() async {
     Map<String, dynamic> requestBody = {
       "email": _emailController.text,
-
       "password": _passwordController.text,
     };
     setState(() {
       isLoading = true;
     });
+    
+    _logger.i('=== LOGIN ATTEMPT ===');
+    _logger.i('Email: ${_emailController.text}');
+    _logger.i('URL: ${Urls.LoginUrl}');
+    
     final ApiResponse response = await ApiCaller.PostRequest(
       URL: Urls.LoginUrl,
       body: requestBody,
     );
+    
+    _logger.i('=== LOGIN RESPONSE ===');
+    _logger.i('Status Code: ${response.responseCode}');
+    _logger.i('Is Success: ${response.isSuccess}');
+    _logger.i('Response Data: ${response.responseData}');
+    _logger.i('Error Message: ${response.errorMsg}');
+    
     setState(() {
       isLoading = false;
     });
 
     if (response.isSuccess) {
-      UserModel model = UserModel.fromJson(response.responseData['data']);
-      String accessToken = response.responseData['token'];
-      AuthController.saveUserdata(model, accessToken);
-      
+      try {
+        if (response.responseData == null) {
+          _logger.e('Response data is null');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid response from server. Please try again.'),
+            ),
+          );
+          return;
+        }
 
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNavScreen()));
-      ScaffoldMessenger.of(
-        // ignore: use_build_context_synchronously
-        context,
-      ).showSnackBar(SnackBar(content: Text('Sign In Successful.')));
+        final dynamic userData = response.responseData['data'];
+        final dynamic token = response.responseData['token'];
+
+        _logger.i('User Data: $userData');
+        _logger.i('Token: $token');
+
+        if (userData == null || token == null) {
+          _logger.e('Missing user data or token in response');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid login response. Please try again.'),
+            ),
+          );
+          return;
+        }
+
+        UserModel model = UserModel.fromJson(userData);
+        String accessToken = token.toString();
+        AuthController.saveUserdata(model, accessToken);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainNavScreen()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sign In Successful.')),
+        );
+      } catch (e) {
+        _logger.e('Exception during login: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: ${e.toString()}')),
+        );
+      }
     } else {
+      String errorMsg = 'Login failed. Please try again.';
+      try {
+        if (response.errorMsg != null && response.errorMsg!.isNotEmpty) {
+          errorMsg = response.errorMsg!;
+        } else if (response.responseData is Map) {
+          if (response.responseData['message'] != null) {
+            errorMsg = response.responseData['message'].toString();
+          } else if (response.responseData['data'] != null) {
+            errorMsg = response.responseData['data'].toString();
+          } else if (response.responseData['error'] != null) {
+            errorMsg = response.responseData['error'].toString();
+          }
+        }
+      } catch (e) {
+        _logger.e('Error parsing error message: $e');
+      }
+      
+      _logger.e('Login Error: $errorMsg');
       ScaffoldMessenger.of(
-        // ignore: use_build_context_synchronously
         context,
-      ).showSnackBar(SnackBar(content: Text(response.responseData['data'])));
+      ).showSnackBar(SnackBar(content: Text(errorMsg)));
     }
   }
 

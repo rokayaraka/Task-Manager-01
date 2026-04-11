@@ -88,9 +88,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         const SnackBar(content: Text('Profile Updated success..!')),
       );
     } else {
+      String errorMsg = 'Profile update failed. Please try again.';
+      try {
+        if (response.responseData is Map &&
+            response.responseData['data'] != null) {
+          errorMsg = response.responseData['data'].toString();
+        }
+      } catch (_) {
+        // Keep default error message
+      }
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(response.responseData['data'])));
+      ).showSnackBar(SnackBar(content: Text(errorMsg)));
     }
   }
 

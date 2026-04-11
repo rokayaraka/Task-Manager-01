@@ -49,7 +49,11 @@ class ApiCaller {
         headers: {'Accept': 'application/json', 'token': AuthController.accessToken??''},
         body: body != null ? jsonEncode(body) : null,
       );
-      _logger.i(response.body);
+      
+      _logger.i('Response Status Code: ${response.statusCode}');
+      _logger.i('Response Headers: ${response.headers}');
+      _logger.i('Response Body: ${response.body}');
+      
       if (response.statusCode == 200 || response.statusCode == 201) {
         return ApiResponse(
           responseCode: response.statusCode,
@@ -57,6 +61,7 @@ class ApiCaller {
           isSuccess: true,
         );
       } else {
+        _logger.w('API returned status ${response.statusCode}');
         return ApiResponse(
           responseCode: response.statusCode,
           responseData: jsonDecode(response.body),
@@ -64,6 +69,7 @@ class ApiCaller {
         );
       }
     } catch (e) {
+      _logger.e('PostRequest Exception: $e');
       return ApiResponse(
         responseCode: -1,
         responseData: null,
