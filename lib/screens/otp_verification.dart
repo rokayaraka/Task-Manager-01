@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,14 +10,18 @@ import 'package:task_manager_astad/utils/app_colors.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class OtpVerification extends StatefulWidget {
-  const OtpVerification({super.key});
+  const OtpVerification({super.key, required this.email});
+  final String email;
 
   @override
   State<OtpVerification> createState() => _NewLoginScreenState();
 }
 
 class _NewLoginScreenState extends State<OtpVerification> {
-  void _onTapLogIn() {
+  PinInputController _pinController = PinInputController();
+  void _onTapLogIn() async{
+
+    log('OTP Entered: ${_pinController.text}');
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
@@ -44,6 +50,8 @@ class _NewLoginScreenState extends State<OtpVerification> {
               SizedBox(height: 25),
               
               PinInput(
+                pinController: _pinController,
+                
                 length: 6,
                 keyboardType: TextInputType.number,
                 builder: (context, cells) {

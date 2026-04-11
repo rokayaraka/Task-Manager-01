@@ -1,9 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/Data/Models/api_response.dart';
+import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 import 'package:task_manager_astad/screens/otp_verification.dart';
 
 import 'package:task_manager_astad/utils/app_colors.dart';
+import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class ForgetPasswordEmailVerify extends StatefulWidget {
@@ -21,11 +24,23 @@ class _NewLoginScreenState extends State<ForgetPasswordEmailVerify> {
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
     );
   }
-   void _onTapVerifyOtp() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => OtpVerification()),
-    );
+   void _onTapVerifyOtp() async {
+     if(_emailController.text.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter your email')));
+      return;
+     }
+
+     ApiResponse response = await ApiCaller.getRequest(URL: Urls.emailVerificationURL(_emailController.text));
+    if(response.isSuccess){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('OTP sent to your email')));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => OtpVerification(email: _emailController.text,)),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to send OTP. Please try again.')));
+    }
+    
   }
 
   @override
