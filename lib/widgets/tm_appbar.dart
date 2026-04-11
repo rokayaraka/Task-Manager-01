@@ -10,8 +10,8 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
 
   @override
   Widget build(BuildContext context) {
-    void _onTapLogOut() {
-      AuthController.cleanUserData(AuthController.userModel!);
+    void _onTapLogOut() async{
+      await AuthController.cleanUserData(AuthController.userModel!);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
@@ -32,20 +32,18 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
             CircleAvatar(
               backgroundImage: NetworkImage(
                 profilePic  ,
-
-                
               ),
             ),
             SizedBox(width: 10,),
             Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${AuthController.userModel!.firstName}${AuthController.userModel!.lastName}',
+                Text('${AuthController.userModel?.firstName??""} ${AuthController.userModel?.lastName??"unknown"}',
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                   color: Colors.white,
                   fontSize: 17,
                 ),
                 ),
-                Text('${AuthController.userModel!.email}',
+                Text('${AuthController.userModel?.email??"Nan"}',
                 style: TextTheme.of(context).bodySmall!.copyWith(
                   color: Colors.white,
                   fontSize: 12,

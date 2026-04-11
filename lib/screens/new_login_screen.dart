@@ -87,7 +87,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
 
         UserModel model = UserModel.fromJson(userData);
         String accessToken = token.toString();
-        AuthController.saveUserData(model, accessToken);
+        await AuthController.saveUserData(model, accessToken);
      log(response.responseCode.toString());
         Navigator.pushReplacement(
           context,
