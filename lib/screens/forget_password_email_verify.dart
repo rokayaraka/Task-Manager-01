@@ -14,6 +14,7 @@ class ForgetPasswordEmailVerify extends StatefulWidget {
 }
 
 class _NewLoginScreenState extends State<ForgetPasswordEmailVerify> {
+  TextEditingController _emailController = TextEditingController();
   void _onTapLogIn() {
     Navigator.push(
       context,
@@ -44,7 +45,13 @@ class _NewLoginScreenState extends State<ForgetPasswordEmailVerify> {
                 style: TextTheme.of(context).titleLarge,
               ),
               SizedBox(height: 25),
-              TextFormField(decoration: InputDecoration(hintText: 'Email')),
+              TextFormField(
+                controller: _emailController,
+                cursorHeight: 20,
+                cursorWidth: 3,
+                style: TextStyle(fontSize: 16),
+                decoration: InputDecoration(hintText: 'Email')
+              ),
               SizedBox(height: 10),
 
               FilledButton(

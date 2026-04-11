@@ -97,7 +97,11 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 25),
                   TextFormField(
                     controller: _emailController,
+                    cursorHeight: 20,
+                    cursorWidth: 3,
+                    style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(hintText: 'Email'),
+
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Valid Email';
@@ -109,7 +113,11 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _firstNameController,
+                    cursorHeight: 20,
+                    cursorWidth: 3,
+                    style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(hintText: 'First Name'),
+
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter  First Name';
@@ -121,6 +129,9 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _lastNameController,
+                    cursorHeight: 20,
+                    cursorWidth: 3,
+                    style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(hintText: 'Last Name'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -133,6 +144,9 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _mobileController,
+                    cursorHeight: 20,
+                    cursorWidth: 3,
+                    style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(hintText: 'Mobile'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -146,6 +160,9 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
                   TextFormField(
                     obscureText: true,
                     controller: _passwordController,
+                     cursorHeight: 20,
+                    cursorWidth: 3,
+                    style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(hintText: 'Password'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
