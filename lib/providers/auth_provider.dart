@@ -92,8 +92,8 @@ class AuthProvider extends ChangeNotifier{
 
     _setLoading(true);
 
-    final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.LoginUrl,
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: Urls.LoginUrl,
       body: requestBody,
     );
 
