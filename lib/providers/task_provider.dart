@@ -52,7 +52,7 @@ class TaskProvider extends ChangeNotifier{
     Future fetchTaskByStatus(String status) async {
       _setLoading(true);
 
-      final response = await ApiCaller.getRequest(URL: Urls.TaskByStatusURL(status));
+      final response = await ApiCaller.getRequest(url: Urls.TaskByStatusURL(status));
 
 
       if(response.isSuccess){
@@ -71,7 +71,7 @@ class TaskProvider extends ChangeNotifier{
 
     Future fetchTaskCounts() async {
 
-      final response = await ApiCaller.getRequest(URL: Urls.TaskCountURL);
+      final response = await ApiCaller.getRequest(url: Urls.TaskCountURL);
 
 
       if(response.isSuccess){
@@ -90,7 +90,7 @@ class TaskProvider extends ChangeNotifier{
 
     Future<bool>changeTaskStatus(String id, String newStatus) async {
 
-      final response =await ApiCaller.getRequest(URL: Urls.ChangeStatusURL(id, newStatus));
+      final response =await ApiCaller.getRequest(url: Urls.ChangeStatusURL(id, newStatus));
 
       if(response.isSuccess){
         newTask.removeWhere((t)=>t.id == id);
@@ -120,7 +120,7 @@ class TaskProvider extends ChangeNotifier{
 
     Future<bool>deleteTask(String id) async {
 
-      final response =await ApiCaller.getRequest(URL: Urls.DeleteTaskURL(id));
+      final response =await ApiCaller.getRequest(url: Urls.DeleteTaskURL(id));
 
       if(response.isSuccess){
         newTask.removeWhere((t)=>t.id == id);
@@ -150,7 +150,7 @@ class TaskProvider extends ChangeNotifier{
 
       _setLoading(true);
 
-      final ApiResponse response = await ApiCaller.PostRequest(URL: Urls.AddTaskURL,
+      final ApiResponse response = await ApiCaller.postRequest(url: Urls.AddTaskURL,
       body: {
         'title': title,
         'description': description,

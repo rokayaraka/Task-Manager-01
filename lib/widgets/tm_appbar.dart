@@ -30,7 +30,7 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                profilePic!
+                profilePic
               ),
             ),
             SizedBox(width: 10,),

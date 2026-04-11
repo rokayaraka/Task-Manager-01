@@ -7,7 +7,7 @@ class ApiResponse{
     required this.responseCode,
     required this.responseData,
     required this.isSuccess,
-    this.errorMsg,
+    this.errorMsg, required String errorMessage,
   });
 
 }

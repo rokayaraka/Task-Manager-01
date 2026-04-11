@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -8,81 +9,60 @@ import 'package:task_manager_astad/Data/Models/api_response.dart';
 class ApiCaller {
   static final Logger _logger = Logger();
 
-  static Future<ApiResponse> getRequest({required String URL}) async {
+  static Future<ApiResponse> getRequest({ required String url }) async {
     try {
-      _logRequest(URL);
-      Uri uri = Uri.parse(URL);
-      Response response = await get(uri, headers: {'token': ''});
-      _logger.i(response.body);
-      if (response.statusCode == 200) {
-        return ApiResponse(
-          responseCode: 200,
-          responseData: jsonDecode(response.body),
-          isSuccess: true,
-        );
-      } else {
-        return ApiResponse(
-          responseCode: response.statusCode,
-          responseData: jsonDecode(response.body),
-          isSuccess: false,
-        );
+      _logRequest(url, null);
+      Uri uri=Uri.parse(url);
+      Response response= await get( uri,
+      headers: {
+          'Content-Type': 'application/json',
+          'token':AuthController.accessToken??""
       }
-    } catch (e) {
-      return ApiResponse(
-        responseCode: -1,
-        responseData: null,
-        isSuccess: false,
-        errorMsg: e.toString(),
       );
+      _logRequest(url, jsonDecode(response.body));
+      if(response.statusCode == 200){
+        return ApiResponse(responseCode: response.statusCode, responseData:jsonDecode(response.body), isSuccess: true, errorMessage: '');
+      }
+      else{
+        return ApiResponse(responseCode: response.statusCode, responseData: jsonDecode(response.body), isSuccess: false, errorMessage: "Request failed with status: ${response.statusCode}");
+      }
+
+    } catch (e) {
+      return ApiResponse(responseCode: -1, responseData: null, isSuccess: false, errorMessage: e.toString());
     }
   }
 
-  static Future<ApiResponse> PostRequest({
-    required String URL,
-    Map<String, dynamic>? body,
-  }) async {
+  static Future<ApiResponse> postRequest({ required String url, required Map<String, dynamic> body }) async {
     try {
-      _logRequest(URL, body: body);
-      Uri uri = Uri.parse(URL);
-      Response response = await post(
-        uri,
-        headers: {'Accept': 'application/json', 'token': AuthController.accessToken??''},
-        body: body != null ? jsonEncode(body) : null,
+      _logRequest(url, null);
+      Uri uri=Uri.parse(url);
+      Response response= await post( uri,
+      headers: {
+          'Content-Type': 'application/json',
+          "accept": "application/json",
+          "token":AuthController.accessToken??""
+      },
+      body:  jsonEncode(body)
       );
-      
-      _logger.i('Response Status Code: ${response.statusCode}');
-      _logger.i('Response Headers: ${response.headers}');
-      _logger.i('Response Body: ${response.body}');
-      
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return ApiResponse(
-          responseCode: response.statusCode,
-          responseData: jsonDecode(response.body),
-          isSuccess: true,
-        );
-      } else {
-        _logger.w('API returned status ${response.statusCode}');
-        return ApiResponse(
-          responseCode: response.statusCode,
-          responseData: jsonDecode(response.body),
-          isSuccess: false,
-        );
+       log("Response Status Code: ${response.statusCode}");
+      _logRequest(url, jsonDecode(response.body));
+     
+      if(response.statusCode == 200|| response.statusCode == 201){
+        return ApiResponse(responseCode: response.statusCode, responseData:jsonDecode(response.body), isSuccess: true, errorMessage: '');
       }
+      else{
+        return ApiResponse(responseCode: response.statusCode, responseData: jsonDecode(response.body), isSuccess: false, errorMessage: "Request failed with status: ${response.statusCode}");
+      }
+
     } catch (e) {
-      _logger.e('PostRequest Exception: $e');
-      return ApiResponse(
-        responseCode: -1,
-        responseData: null,
-        isSuccess: false,
-        errorMsg: e.toString(),
-      );
+      return ApiResponse(responseCode: -1, responseData: null, isSuccess: false, errorMessage: e.toString());
     }
   }
 
-  static void _logRequest(String URL, {Map<String, dynamic>? body}) {
+  static void _logRequest(String url, Map<String, dynamic>? body) {
     _logger.i(
-      'URL => $URL \n'
-          'Body=> $body\n',
+      "URL => $url\n"
+      "Body => ${body != null ? body.toString() : 'No Body'}",
     );
   }
 }

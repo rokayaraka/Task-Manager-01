@@ -63,8 +63,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       isLoading = true;
     });
 
-    final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.ProfileUpdateURL,
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: Urls.ProfileUpdateURL,
       body: requestBody,
     );
 

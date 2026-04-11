@@ -41,8 +41,8 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
     _logger.i('Email: ${_emailController.text}');
     _logger.i('URL: ${Urls.LoginUrl}');
     
-    final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.LoginUrl,
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: Urls.LoginUrl,
       body: requestBody,
     );
     
