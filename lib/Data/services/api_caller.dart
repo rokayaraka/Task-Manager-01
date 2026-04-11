@@ -15,6 +15,8 @@ class ApiCaller{
             _logRequest(URL);
             Uri uri = Uri.parse(URL);
             Response response =await get(uri,headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
                 'token' : AuthController.accessToken ?? ''
             });
 
