@@ -15,12 +15,14 @@ class _CancelTaskScreenState extends State<CancelTaskScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-
-      final provider = Provider.of<TaskProvider>(context,listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      final provider = Provider.of<TaskProvider>(context, listen: false);
       provider.fetchTaskByStatus('Cancelled');
+    });
   }
 
 
