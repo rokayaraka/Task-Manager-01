@@ -11,6 +11,7 @@ class TmAppbar extends StatelessWidget implements PreferredSize{
   @override
   Widget build(BuildContext context) {
     void _onTapLogOut() {
+      AuthController.cleanUserData(AuthController.userModel!);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
