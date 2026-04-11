@@ -1,14 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager_astad/Data/Models/api_response.dart';
+import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 //import 'package:task_manager_astad/screens/otp_verification.dart';
 
 import 'package:task_manager_astad/utils/app_colors.dart';
+import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class SetPasswordScreen extends StatefulWidget {
-  const SetPasswordScreen({super.key});
-
+  const SetPasswordScreen({super.key, required this.email, required this.otp});
+  final String email;
+  final String otp;
   @override
   State<SetPasswordScreen> createState() => _NewLoginScreenState();
 }
@@ -63,7 +67,7 @@ class _NewLoginScreenState extends State<SetPasswordScreen> {
               ),
               SizedBox(height: 10),
               FilledButton(
-                onPressed: (){},
+                onPressed: setPassword,
                 child: Text('Confirm'),
               ),
               SizedBox(height: 35),
@@ -98,5 +102,33 @@ class _NewLoginScreenState extends State<SetPasswordScreen> {
         ),
       ),
     );
+  }
+
+  void setPassword()async {
+    String password = _passwordController.text.trim();
+    String confirmPassword = _confirmPasswordController.text.trim();
+
+   if(password!=confirmPassword){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
+      return; 
+   }
+
+   ApiResponse response = await ApiCaller.PostRequest(URL: Urls.resetPasswordURL, body: {
+      'password': password,
+      'email': widget.email,
+      'OTP': widget.otp
+   });
+
+   if(response.isSuccess){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password reset successful. Please log in with your new password.')));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NewLoginScreen()),
+      );
+   } else {
+     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to reset password. Please try again.')));
+   }
+    
+    
   }
 }

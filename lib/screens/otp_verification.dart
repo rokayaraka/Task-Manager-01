@@ -3,10 +3,13 @@ import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:task_manager_astad/Data/Models/api_response.dart';
+import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 import 'package:task_manager_astad/screens/set_password_screen.dart';
 
 import 'package:task_manager_astad/utils/app_colors.dart';
+import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class OtpVerification extends StatefulWidget {
@@ -19,17 +22,28 @@ class OtpVerification extends StatefulWidget {
 
 class _NewLoginScreenState extends State<OtpVerification> {
   PinInputController _pinController = PinInputController();
-  void _onTapLogIn() async{
+  void _onTapOtpVerify() async{
     log('OTP Entered: ${_pinController.text}');
+
+    if(_pinController.text.length != 6){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a valid 6-digit OTP')));
+      return;
+    }
+    ApiResponse response = await ApiCaller.getRequest(URL: Urls.verifyOTPURL(widget.email, _pinController.text));
+    if(response.isSuccess){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('OTP verified successfully')));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SetPasswordScreen(email: widget.email, otp: _pinController.text)),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid OTP. Please try again.')));
+    }
+  }
+  void _onTapLogIn() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NewLoginScreen()),
-    );
-  }
-  void _onTapForOtpVerify() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SetPasswordScreen()),
     );
   }
 
@@ -82,7 +96,7 @@ class _NewLoginScreenState extends State<OtpVerification> {
               SizedBox(height: 10),
 
               FilledButton(
-                onPressed: _onTapForOtpVerify,
+                onPressed: _onTapOtpVerify,
                 child: Icon(Icons.arrow_circle_right_outlined),
               ),
               SizedBox(height: 35),
