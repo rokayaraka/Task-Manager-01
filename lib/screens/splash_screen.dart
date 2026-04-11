@@ -15,29 +15,42 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Future<void> moveToNextScreen() async {
-    await Future.delayed(Duration(seconds: 3));
-    await AuthController.getUserData();
-    final bool isLoggIn = await AuthController.isUserLoggedIn();
-
-    if (isLoggIn) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainNavScreen()),
-      );
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => NewLoginScreen()),
-      );
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     moveToNextScreen();
   }
+
+  Future<void> moveToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    bool isLoggIn = false;
+
+    try {
+      await AuthController.getUserData();
+      isLoggIn = await AuthController.isUserLoggedIn();
+    } catch (_) {
+      isLoggIn = false;
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    if (isLoggIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainNavScreen()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const NewLoginScreen()),
+      );
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -53,14 +53,21 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
     if (response.isSuccess) {
       _clearTextField();
       ScaffoldMessenger.of(
-        // ignore: use_build_context_synchronously
         context,
-      ).showSnackBar(SnackBar(content: Text('Sign Up Successful.')));
+      ).showSnackBar(const SnackBar(content: Text('Sign Up Successful.')));
     } else {
+      String errorMsg = 'Sign up failed. Please try again.';
+      try {
+        if (response.responseData is Map &&
+            response.responseData['data'] != null) {
+          errorMsg = response.responseData['data'].toString();
+        }
+      } catch (_) {
+        // Keep default error message
+      }
       ScaffoldMessenger.of(
-        // ignore: use_build_context_synchronously
         context,
-      ).showSnackBar(SnackBar(content: Text(response.responseData['data'])));
+      ).showSnackBar(SnackBar(content: Text(errorMsg)));
     }
   }
 
