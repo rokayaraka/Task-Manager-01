@@ -4,7 +4,6 @@ import 'package:task_manager_astad/Data/Models/api_response.dart';
 import 'package:task_manager_astad/Data/services/api_caller.dart';
 import 'package:task_manager_astad/screens/new_login_screen.dart';
 import 'package:task_manager_astad/utils/app_colors.dart';
-import 'package:task_manager_astad/utils/urls.dart';
 import 'package:task_manager_astad/widgets/screen_background.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -42,9 +41,8 @@ class _NewSignUpScreenState extends State<SignUpScreen> {
     setState(() {
       isLoading = true;
     });
-    final ApiResponse response = await ApiCaller.postRequest(
-      url: Urls.SignUpURL,
-      body: requestBody,
+    final ApiResponse response = await ApiCaller.PostRequest(
+      body: requestBody, URL: 'Urls.SignUpURL',
     );
     setState(() {
       isLoading = false;

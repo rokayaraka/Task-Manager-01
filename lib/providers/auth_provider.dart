@@ -14,8 +14,8 @@ import '../data/services/api_caller.dart';
 import '../utils/urls.dart';
 
 class AuthProvider extends ChangeNotifier{
-  static final String _accessTokenKey = 'token';
-  static final String _userModelKey = 'user-data';
+  static String _accessTokenKey = 'token';
+  static String _userModelKey = 'user-data';
   static final Logger _logger = Logger();
   String? errorMessage;
   bool isLoading = false;
@@ -73,7 +73,7 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _setLoading(bool value){
+  _setLoading(bool value){
     isLoading = value;
     notifyListeners();
   }
@@ -92,8 +92,8 @@ class AuthProvider extends ChangeNotifier{
 
     _setLoading(true);
 
-    final ApiResponse response = await ApiCaller.postRequest(
-      url: Urls.LoginUrl,
+    final ApiResponse response = await ApiCaller.PostRequest(
+      URL: Urls.LoginUrl,
       body: requestBody,
     );
 

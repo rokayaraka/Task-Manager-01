@@ -41,9 +41,9 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
     _logger.i('Email: ${_emailController.text}');
     _logger.i('URL: ${Urls.LoginUrl}');
     
-    final ApiResponse response = await ApiCaller.postRequest(
-      url: Urls.LoginUrl,
-      body: requestBody,
+    final ApiResponse response = await ApiCaller.PostRequest(
+      URL: Urls.LoginUrl,
+      body: requestBody, 
     );
     
     _logger.i('=== LOGIN RESPONSE ===');
@@ -87,7 +87,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
 
         UserModel model = UserModel.fromJson(userData);
         String accessToken = token.toString();
-        AuthController.saveUserdata(model, accessToken);
+        AuthController.saveUserData(model, accessToken);
      log(response.responseCode.toString());
         Navigator.pushReplacement(
           context,

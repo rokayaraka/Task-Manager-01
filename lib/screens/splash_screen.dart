@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     try {
       await AuthController.getUserData();
-      isLoggIn = await AuthController.isUserLoggedIn();
+      isLoggIn = await AuthController.isUserLoggeIn();
     } catch (_) {
       isLoggIn = false;
     }
